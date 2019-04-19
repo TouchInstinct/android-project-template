@@ -1,32 +1,141 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion versions.compileSdk
+
     defaultConfig {
-        applicationId "ru.touchin.template"
+        applicationId "com.touchin.template"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion versions.compileSdk
+        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 10000
+        versionName "1.0." + versionCode
+
+        rootProject.extensions.pathToApiSchemes = "$rootDir/Template-common/api"
+        rootProject.extensions.applicationId = "com.touchin.template"
+
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
-        release {
+        debug {
+            versionNameSuffix ".debug"
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
         }
     }
+
+    flavorDimensions "proguardSettings", "apiEndpoint"
+
+    productFlavors {
+        noObfuscate {
+            dimension "proguardSettings"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "$buildScriptsDir/proguard/noObfuscate.pro"
+        }
+        obfuscate {
+            dimension "proguardSettings"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "$buildScriptsDir/proguard/obfuscate.pro"
+        }
+        mock {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-mock.dev.touchin.ru/api/"'
+        }
+        prod {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-middleware.prod.touchin.ru/"'
+        }
+    }
+
+    extensions.languageMap = ["ru": "Template-common/strings/default_common_strings_ru.json"]
+
+}
+
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") {
+        transitive = true
+    }
+
+    // RoboSwag
+    implementation project(':utils')
+    implementation project(':views')
+    implementation project(':storable')
+    implementation project(':logging')
+    implementation project(':api-logansquare')
+    implementation project(':lifecycle')
+    implementation project(':lifecycle-rx')
+    implementation project(':navigation')
+    implementation project(':templates')
+    implementation project(':recyclerview-adapters')
+    implementation project(':kotlin-extensions')
+    implementation project(':livedata-location')
+    implementation project(':recyclerview-calendar')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.recyclerview:recyclerview:$versions.androidx"
+    implementation "androidx.cardview:cardview:$versions.androidx"
+    implementation "androidx.gridlayout:gridlayout:$versions.androidx"
+    implementation "androidx.core:core-ktx:$versions.androidxKtx"
+    //noinspection GradleDependency NewerVersionAvailable
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
+    implementation "com.google.android.material:material:$versions.material"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$versions.lifecycle"
+
+    // Room
+    implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.room:room-rxjava2:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.14.1"
+
+    // Logan square
+    implementation 'ru.touchin:logansquare:1.4.3'
+    kapt 'ru.touchin:logansquare-compiler:1.4.3'
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
 }
+
+gradle.projectsEvaluated {
+    preBuild.dependsOn('stringGenerator')
+}
+
+apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
+apply from: "$buildScriptsDir/gradle/staticAnalysis.gradle"
+apply from: "$buildScriptsDir/gradle/apiGenerator.gradle"
