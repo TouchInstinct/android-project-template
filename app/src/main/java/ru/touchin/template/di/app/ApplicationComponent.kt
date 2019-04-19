@@ -1,10 +1,11 @@
 package ru.touchin.template.di.app
 
-import com.touchin.vtb.di.app.ApplicationModule
-import com.touchin.vtb.di.app.PersistentModule
-import ru.touchin.template.di.viewmodel.ViewModelModule
 import dagger.Component
 import ru.touchin.template.TemplateApplication
+import ru.touchin.template.di.app.modules.ApplicationModule
+import ru.touchin.template.di.app.modules.NetworkModule
+import ru.touchin.template.di.app.modules.PersistentModule
+import ru.touchin.template.di.viewmodel.ViewModelModule
 import javax.inject.Singleton
 
 @Singleton

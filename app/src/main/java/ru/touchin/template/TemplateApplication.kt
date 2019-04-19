@@ -2,11 +2,11 @@ package ru.touchin.template
 
 import androidx.appcompat.app.AppCompatDelegate
 import com.bluelinelabs.logansquare.LoganSquare
-import com.touchin.vtb.di.app.ApplicationModule
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import ru.touchin.lifecycle.viewmodel.ViewModelFactory
 import ru.touchin.lifecycle.viewmodel.ViewModelFactoryProvider
+import ru.touchin.template.di.app.modules.ApplicationModule
 import ru.touchin.templates.TouchinApp
 import ru.touchin.templates.logansquare.LoganSquareBigDecimalConverter
 import ru.touchin.templates.logansquare.LoganSquareJodaTimeConverter
@@ -34,9 +34,9 @@ class TemplateApplication : TouchinApp(), ViewModelFactoryProvider {
 
     private fun initializeDagger() {
         DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-                .inject(this)
+            .applicationModule(ApplicationModule(this))
+            .build()
+            .inject(this)
     }
 
 }

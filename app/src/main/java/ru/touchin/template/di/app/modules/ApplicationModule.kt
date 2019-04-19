@@ -1,4 +1,4 @@
-package com.touchin.vtb.di.app
+package ru.touchin.template.di.app.modules
 
 import android.content.Context
 import android.content.SharedPreferences

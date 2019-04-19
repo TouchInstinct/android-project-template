@@ -1,7 +1,7 @@
 package ru.touchin.template.activities
 
 import android.os.Bundle
-import com.touchin.vtb.R
+import com.touchin.template.R
 import ru.touchin.templates.TouchinActivity
 
 class StartupActivity : TouchinActivity() {

@@ -1,4 +1,4 @@
-package com.touchin.vtb.api
+package ru.touchin.template.api
 
 import com.touchin.template.api.BaseResponse
 import io.reactivex.Single
