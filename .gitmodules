@@ -1,6 +1,0 @@
-[submodule "VTBAccounting-common"]
-	path = VTBAccounting-common
-	url = https://github.com/TouchInstinct/VTBAccounting-common
-[submodule "RoboSwag"]
-	path = RoboSwag
-	url = git@github.com:TouchInstinct/RoboSwag.git
