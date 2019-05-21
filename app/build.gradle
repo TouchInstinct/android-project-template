@@ -88,7 +88,7 @@ android {
         }
         customerProd {
             dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://api.cifra.pw/api/"'
+            buildConfigField "String", "API_URL", '"https://touchin.ru/api/"'
         }
     }
 
@@ -129,7 +129,6 @@ dependencies {
     implementation "androidx.cardview:cardview:$versions.androidx"
     implementation "androidx.gridlayout:gridlayout:$versions.androidx"
     implementation "androidx.core:core-ktx:$versions.androidxKtx"
-    //noinspection GradleDependency NewerVersionAvailable
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
     implementation "com.google.android.material:material:$versions.material"
 
@@ -145,12 +144,12 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
-    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.14.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$versions.okhttp3"
 
     // Logan square
-    implementation 'ru.touchin:logansquare:1.4.3'
-    kapt 'ru.touchin:logansquare-compiler:1.4.3'
+    implementation "ru.touchin:logansquare:$versions.logansquare"
+    kapt "ru.touchin:logansquare-compiler:$versions.logansquare"
 
     // Dagger
     implementation "com.google.dagger:dagger:$versions.dagger"
