@@ -9,7 +9,8 @@
         android:name="ru.touchin.template.TemplateApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="VTBAccountingApplication"
+        android:label="TemplateApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="false"
         tools:ignore="GoogleAppIndexingWarning">
