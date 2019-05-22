@@ -19,7 +19,8 @@ class TemplateApplication : TouchinApp(), ViewModelFactoryProvider {
 
     override fun onCreate() {
         super.onCreate()
-
+        //TODO remove after init
+        Fabric.with(this, Crashlytics())
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         initializeLoganSquare()
         initializeDagger()
