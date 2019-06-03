@@ -1,0 +1,175 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.touchin.template"
+        minSdkVersion 21
+        targetSdkVersion versions.compileSdk
+        versionCode System.getenv("BUILD_NUMBER") as Integer ?: 10000
+        versionName "1.0." + versionCode
+
+        rootProject.extensions.pathToApiSchemes = "$rootDir/Template-common/api"
+        rootProject.extensions.applicationId = "com.touchin.template"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("keystore/touchin.jks")
+            storePassword "iphoneandroidwp7"
+            keyAlias "touchin"
+            keyPassword "iphoneandroidwp7"
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix ".debug"
+            minifyEnabled false
+            shrinkResources false
+            ext.enableCrashlytics = false
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            ext.enableCrashlytics = true
+            ext.betaDistributionGroupAliases = "touch-instinct"
+            ext.betaDistributionReleaseNotesFilePath = file("release-notes.txt")
+            signingConfig signingConfigs.release
+        }
+    }
+
+    flavorDimensions "proguardSettings", "apiEndpoint"
+
+    productFlavors {
+        noObfuscate {
+            dimension "proguardSettings"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "$buildScriptsDir/proguard/noObfuscate.pro"
+        }
+        obfuscate {
+            dimension "proguardSettings"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "$buildScriptsDir/proguard/obfuscate.pro"
+        }
+        mockDev {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-mock.dev.touchin.ru/api/"'
+        }
+        mockTest {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-mock.test.touchin.ru/api/"'
+        }
+        mockStage {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-mock.stage.touchin.ru/api/"'
+        }
+        touchinDev {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-middleware.dev.touchin.ru/api/"'
+        }
+        touchinTest {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-middleware.test.touchin.ru/api/"'
+        }
+        touchinStage {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://template-middleware.stage.touchin.ru/api/"'
+        }
+        customerProd {
+            dimension "apiEndpoint"
+            buildConfigField "String", "API_URL", '"https://touchin.ru/api/"'
+        }
+    }
+
+    extensions.languageMap = ["ru": "Template-common/strings/default_common_strings_ru.json"]
+
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") {
+        transitive = true
+    }
+
+    // RoboSwag
+    implementation project(':utils')
+    implementation project(':views')
+    implementation project(':storable')
+    implementation project(':logging')
+    implementation project(':api-logansquare')
+    implementation project(':lifecycle')
+    implementation project(':lifecycle-rx')
+    implementation project(':navigation')
+    implementation project(':templates')
+    implementation project(':recyclerview-adapters')
+    implementation project(':kotlin-extensions')
+    implementation project(':livedata-location')
+    implementation project(':recyclerview-calendar')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.recyclerview:recyclerview:$versions.androidx"
+    implementation "androidx.cardview:cardview:$versions.androidx"
+    implementation "androidx.gridlayout:gridlayout:$versions.androidx"
+    implementation "androidx.core:core-ktx:$versions.androidxKtx"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
+    implementation "com.google.android.material:material:$versions.material"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$versions.lifecycle"
+
+    // Room
+    implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.room:room-rxjava2:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$versions.okhttp3"
+
+    // Logan square
+    implementation "ru.touchin:logansquare:$versions.logansquare"
+    kapt "ru.touchin:logansquare-compiler:$versions.logansquare"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+}
+
+gradle.projectsEvaluated {
+    preBuild.dependsOn('stringGenerator')
+}
+
+apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
+apply from: "$buildScriptsDir/gradle/staticAnalysis.gradle"
+apply from: "$buildScriptsDir/gradle/apiGenerator.gradle"

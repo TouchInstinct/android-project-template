@@ -1,0 +1,6 @@
+[submodule "Template-common"]
+	path = Template-common
+	url = git@github.com:TouchInstinct/Template-common.git
+[submodule "RoboSwag"]
+	path = RoboSwag
+	url = https://github.com/TouchInstinct/RoboSwag.git
