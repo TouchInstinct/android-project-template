@@ -2,9 +2,9 @@ package ru.touchin.template.activities
 
 import android.os.Bundle
 import com.touchin.template.R
-import ru.touchin.templates.TouchinActivity
+import ru.touchin.roboswag.components.navigation.activities.BaseActivity
 
-class StartupActivity : TouchinActivity() {
+class StartupActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,10 +1,19 @@
-gradle.ext.componentsRoot = "RoboSwag"
-apply from: "$gradle.ext.componentsRoot/modules.gradle"
+gradle.ext.roboswag = [
+        'utils',
+        'logging',
+        'navigation',
+        'storable',
+        'api-logansquare',
+        'lifecycle',
+        'lifecycle-rx',
+        'views',
+        'recyclerview-adapters',
+        'kotlin-extensions'
+]
 
-include ':recyclerview-calendar'
-include ':livedata-location'
-
-project(':recyclerview-calendar').projectDir = new File(gradle.ext.componentsRoot, 'recyclerview-calendar')
-project(':livedata-location').projectDir = new File(gradle.ext.componentsRoot, 'livedata-location')
+gradle.ext.roboswag.forEach { module ->
+    include ":$module"
+    project(":$module").projectDir = file("RoboSwag/$module")
+}
 
 include ':app'

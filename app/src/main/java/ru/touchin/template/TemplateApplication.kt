@@ -6,8 +6,9 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import ru.touchin.lifecycle.viewmodel.ViewModelFactory
 import ru.touchin.lifecycle.viewmodel.ViewModelFactoryProvider
+import ru.touchin.roboswag.components.navigation.TouchinApp
+import ru.touchin.template.di.app.DaggerApplicationComponent
 import ru.touchin.template.di.app.modules.ApplicationModule
-import ru.touchin.templates.TouchinApp
 import ru.touchin.templates.logansquare.LoganSquareBigDecimalConverter
 import ru.touchin.templates.logansquare.LoganSquareJodaTimeConverter
 import java.math.BigDecimal
@@ -20,7 +21,6 @@ class TemplateApplication : TouchinApp(), ViewModelFactoryProvider {
     override fun onCreate() {
         super.onCreate()
         //TODO remove after init
-        Fabric.with(this, Crashlytics())
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         initializeLoganSquare()
         initializeDagger()

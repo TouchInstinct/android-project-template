@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -22,6 +22,14 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    firebaseCrashlytics {
+        mappingFileUploadEnabled true
     }
 
     signingConfigs {
@@ -101,24 +109,11 @@ androidExtensions {
 }
 
 dependencies {
-    implementation("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") {
-        transitive = true
-    }
 
     // RoboSwag
-    implementation project(':utils')
-    implementation project(':views')
-    implementation project(':storable')
-    implementation project(':logging')
-    implementation project(':api-logansquare')
-    implementation project(':lifecycle')
-    implementation project(':lifecycle-rx')
-    implementation project(':navigation')
-    implementation project(':templates')
-    implementation project(':recyclerview-adapters')
-    implementation project(':kotlin-extensions')
-    implementation project(':livedata-location')
-    implementation project(':recyclerview-calendar')
+    gradle.ext.roboswag.forEach { module ->
+        implementation project(":$module")
+    }
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -165,11 +160,12 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
 }
+//TODO: uncomment, when common repo become plugged
 
-gradle.projectsEvaluated {
-    preBuild.dependsOn('stringGenerator')
-}
+//gradle.projectsEvaluated {
+//    preBuild.dependsOn('stringGenerator')
+//}
 
-apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
+//apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
 apply from: "$buildScriptsDir/gradle/staticAnalysis.gradle"
 apply from: "$buildScriptsDir/gradle/apiGenerator.gradle"
