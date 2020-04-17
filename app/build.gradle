@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.firebase.crashlytics'
 
+def customEndpoint = System.getenv("CUSTOM_ENDPOINT")
+
 android {
     compileSdkVersion versions.compileSdk
 
@@ -59,8 +61,11 @@ android {
         }
     }
 
-    flavorDimensions "proguardSettings", "apiEndpoint"
+    flavorDimensions "proguardSettings", "apiEndpoint", "sslPinning", "testPanel"
 
+    /*
+        Use that guide for adding new server env. flavours https://github.com/TouchInstinct/Styleguide/blob/master/general/setupBuildGuide.md
+    */
     productFlavors {
         noObfuscate {
             dimension "proguardSettings"
@@ -70,33 +75,29 @@ android {
             dimension "proguardSettings"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "$buildScriptsDir/proguard/obfuscate.pro"
         }
-        mockDev {
-            dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-mock.dev.touchin.ru/api/"'
-        }
-        mockTest {
-            dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-mock.test.touchin.ru/api/"'
-        }
-        mockStage {
-            dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-mock.stage.touchin.ru/api/"'
-        }
-        touchinDev {
-            dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-middleware.dev.touchin.ru/api/"'
-        }
         touchinTest {
+            def endpoint = customEndpoint ?: 'https://template-server.test.touchin.ru'
             dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-middleware.test.touchin.ru/api/"'
-        }
-        touchinStage {
-            dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://template-middleware.stage.touchin.ru/api/"'
+            buildConfigField "String", "API_URL", """\"${endpoint}/\""""
         }
         customerProd {
+            def endpoint = customEndpoint ?: 'https://template-server.prod.customer.ru'
             dimension "apiEndpoint"
-            buildConfigField "String", "API_URL", '"https://touchin.ru/api/"'
+            buildConfigField "String", "API_URL", """\"${endpoint}/\""""
+        }
+        withSSLPinning {
+            dimension "sslPinning"
+            buildConfigField "Boolean", "PIN_SSL", 'true'
+        }
+        withoutSSLPinning {
+            dimension "sslPinning"
+            buildConfigField "Boolean", "PIN_SSL", 'false'
+        }
+        withTestPanel {
+            dimension "testPanel"
+        }
+        withoutTestPanel {
+            dimension "testPanel"
         }
     }
 
@@ -124,7 +125,7 @@ dependencies {
     implementation "androidx.cardview:cardview:$versions.androidx"
     implementation "androidx.gridlayout:gridlayout:$versions.androidx"
     implementation "androidx.core:core-ktx:$versions.androidxKtx"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation "com.google.android.material:material:$versions.material"
 
     // Lifecycle
@@ -159,6 +160,13 @@ dependencies {
     implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
+    // Chucker
+    withTestPanelImplementation "com.github.ChuckerTeam.Chucker:library:$versions.chucker"
+    withoutTestPanelImplementation "com.github.ChuckerTeam.Chucker:library-no-op:$versions.chucker"
+
+    // LeakCanary
+    withTestPanelImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
+
 }
 //TODO: uncomment, when common repo become plugged
 
@@ -169,3 +177,4 @@ dependencies {
 //apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
 apply from: "$buildScriptsDir/gradle/staticAnalysis.gradle"
 apply from: "$buildScriptsDir/gradle/apiGenerator.gradle"
+apply from: "$buildScriptsDir/gradle/applicationFileNaming.gradle"
