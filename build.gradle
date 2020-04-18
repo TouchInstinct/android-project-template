@@ -53,7 +53,7 @@ ext {
             rxJava             : '2.2.3',
             rxAndroid          : '2.1.1',
             crashlytics        : '2.10.1',
-            firebaseCrashlytics: '17.0.0-beta01',
+            firebaseCrashlytics: '17.0.0-beta04',
             glide              : '4.11.0',
             location           : '16.0.0',
             chucker            : '3.1.1',
