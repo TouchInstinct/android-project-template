@@ -55,8 +55,6 @@ android {
             minifyEnabled true
             shrinkResources true
             ext.enableCrashlytics = true
-            ext.betaDistributionGroupAliases = "touch-instinct"
-            ext.betaDistributionReleaseNotesFilePath = file("release-notes.txt")
             signingConfig signingConfigs.release
         }
     }
@@ -175,6 +173,5 @@ dependencies {
 //}
 
 //apply from: "$buildScriptsDir/gradle/stringGenerator.gradle"
-apply from: "$buildScriptsDir/gradle/staticAnalysis.gradle"
 apply from: "$buildScriptsDir/gradle/apiGenerator.gradle"
 apply from: "$buildScriptsDir/gradle/applicationFileNaming.gradle"
