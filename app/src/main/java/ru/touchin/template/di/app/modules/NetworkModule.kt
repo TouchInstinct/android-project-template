@@ -1,5 +1,7 @@
 package ru.touchin.template.di.app.modules
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.touchin.template.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -36,25 +38,26 @@ class NetworkModule {
     @Singleton
     @PublicApi
     @Provides
-    fun providePublicClient(exceptionsInterceptor: ExceptionsInterceptor): OkHttpClient =
-        buildPublicClient(exceptionsInterceptor)
+    fun providePublicClient(context: Context, exceptionsInterceptor: ExceptionsInterceptor): OkHttpClient =
+            buildPublicClient(context, exceptionsInterceptor)
 
     private fun buildRetrofitInstance(client: OkHttpClient, apiUrl: String): Retrofit = Retrofit.Builder()
-        .baseUrl(apiUrl)
-        .client(client)
-        .addCallAdapterFactory(CALL_ADAPTER_FACTORY)
-        .addConverterFactory(CONVERTER_FACTORY)
-        .build()
+            .baseUrl(apiUrl)
+            .client(client)
+            .addCallAdapterFactory(CALL_ADAPTER_FACTORY)
+            .addConverterFactory(CONVERTER_FACTORY)
+            .build()
 
-    private fun buildPublicClient(exceptionsInterceptor: ExceptionsInterceptor): OkHttpClient = OkHttpClient.Builder()
-        .apply {
-            connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-            readTimeout(TIMEOUT, TimeUnit.SECONDS)
-            writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            addInterceptor(exceptionsInterceptor)
-            if (BuildConfig.DEBUG) {
-                addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-            }
-        }.build()
+    private fun buildPublicClient(context: Context, exceptionsInterceptor: ExceptionsInterceptor): OkHttpClient = OkHttpClient.Builder()
+            .apply {
+                connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                readTimeout(TIMEOUT, TimeUnit.SECONDS)
+                writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+                addInterceptor(exceptionsInterceptor)
+                addInterceptor(ChuckerInterceptor(context))
+                if (BuildConfig.DEBUG) {
+                    addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+                }
+            }.build()
 
 }
