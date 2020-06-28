@@ -1,13 +1,13 @@
-package ru.touchin.mvi_test.feature_login.presentation
+package ru.touchin.template.feature_login.presentation
 
 import android.os.Bundle
 import android.view.View
 import me.vponomarenko.injectionmanager.IHasComponent
 import me.vponomarenko.injectionmanager.x.XInjectionManager
-import ru.touchin.mvi_test.feature_login.R
-import ru.touchin.mvi_test.feature_login.databinding.FragmentLoginBinding
-import ru.touchin.mvi_test.feature_login.di.DaggerLoginComponent
-import ru.touchin.mvi_test.feature_login.di.LoginComponent
+import ru.touchin.template.feature_login.R
+import ru.touchin.template.feature_login.databinding.FragmentLoginBinding
+import ru.touchin.template.feature_login.di.DaggerLoginComponent
+import ru.touchin.template.feature_login.di.LoginComponent
 import ru.touchin.roboswag.mvi_arch.core.MviFragment
 import ru.touchin.roboswag.navigation_base.fragments.EmptyState
 import ru.touchin.roboswag.navigation_base.fragments.viewBinding

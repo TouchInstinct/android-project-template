@@ -4,8 +4,8 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.terrakok.cicerone.Router
-import ru.touchin.mvi_test.feature_login.LoginDeps
-import ru.touchin.mvitest.network.di.NetworkModule
+import ru.touchin.template.feature_login.LoginDeps
+import ru.touchin.template.network.di.NetworkModule
 import ru.touchin.template.App
 import ru.touchin.template.SingleActivity
 import ru.touchin.template.core_prefs.PreferencesModule

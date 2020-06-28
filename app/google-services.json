@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1084813714260:android:b6d7bb18a0acfe96255ec1",
         "android_client_info": {
-          "package_name": "ru.touchin.template"
+          "package_name": "com.touchin.template"
         }
       },
       "oauth_client": [

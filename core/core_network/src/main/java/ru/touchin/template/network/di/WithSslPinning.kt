@@ -1,4 +1,4 @@
-package ru.touchin.mvitest.network.di
+package ru.touchin.template.network.di
 
 import javax.inject.Qualifier
 

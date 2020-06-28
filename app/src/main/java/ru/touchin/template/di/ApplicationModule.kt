@@ -5,9 +5,9 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
-import ru.touchin.mvitest.network.di.ApiUrl
-import ru.touchin.mvitest.network.di.ChuckInterceptor
-import ru.touchin.mvitest.network.di.WithSslPinning
+import ru.touchin.template.network.di.ApiUrl
+import ru.touchin.template.network.di.ChuckInterceptor
+import ru.touchin.template.network.di.WithSslPinning
 import ru.touchin.template.BuildConfig
 
 @Module

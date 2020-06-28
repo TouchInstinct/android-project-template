@@ -1,9 +1,9 @@
-package ru.touchin.mvi_test.feature_login.presentation
+package ru.touchin.template.feature_login.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import ru.touchin.mvi_test.feature_login.navigation.LoginCoordinator
+import ru.touchin.template.feature_login.navigation.LoginCoordinator
 import ru.touchin.roboswag.mvi_arch.core.MviViewModel
 import ru.touchin.roboswag.mvi_arch.di.ViewModelAssistedFactory
 import ru.touchin.roboswag.navigation_base.fragments.EmptyState

@@ -1,12 +1,12 @@
-package ru.touchin.mvitest.network.interceptor
+package ru.touchin.template.network.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
-import ru.touchin.mvitest.network.cloneBody
-import ru.touchin.mvitest.network.models.ServerException
+import ru.touchin.template.network.cloneBody
+import ru.touchin.template.network.models.ServerException
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton

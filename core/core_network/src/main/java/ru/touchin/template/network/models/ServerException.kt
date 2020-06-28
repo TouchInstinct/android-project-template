@@ -1,4 +1,4 @@
-package ru.touchin.mvitest.network.models
+package ru.touchin.template.network.models
 
 import java.io.IOException
 

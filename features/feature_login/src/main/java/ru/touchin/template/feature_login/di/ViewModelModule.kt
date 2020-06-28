@@ -1,11 +1,11 @@
-package ru.touchin.mvi_test.feature_login.di
+package ru.touchin.template.feature_login.di
 
 import androidx.lifecycle.ViewModel
 import com.squareup.inject.assisted.dagger2.AssistedModule
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.touchin.mvi_test.feature_login.presentation.LoginViewModel
+import ru.touchin.template.feature_login.presentation.LoginViewModel
 import ru.touchin.roboswag.mvi_arch.di.ViewModelAssistedFactory
 import ru.touchin.roboswag.mvi_arch.di.ViewModelKey
 

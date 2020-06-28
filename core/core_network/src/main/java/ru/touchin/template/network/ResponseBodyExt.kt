@@ -1,4 +1,4 @@
-package ru.touchin.mvitest.network
+package ru.touchin.template.network
 
 import okhttp3.ResponseBody
 import java.nio.charset.Charset
