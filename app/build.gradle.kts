@@ -61,8 +61,6 @@ android {
         addEmptyFlavour(TestPanelFlavour.ON)
     }
 
-    extensions.add("languageMap", mapOf("ru" to "Template-common/strings/default_common_strings_ru.json"))
-
     variantFilter = Action {
         if (name.contentEquals(AndroidConfig.PROD_BUILD_NAME)) {
             (defaultConfig as com.android.build.gradle.internal.dsl.BaseFlavor).apply {
@@ -96,9 +94,4 @@ dependencies {
     implementation(Library.FIREBASE_PERF)
 }
 
-//gradle.projectsEvaluated {
-//    preBuild.dependsOn('stringGenerator')
-//}
-
-//apply(from = "${rootProject.ext["buildScriptsDir"]}/gradle/stringGenerator.gradle")
 apply(from = "${rootProject.ext["buildScriptsDir"]}/gradle/applicationFileNaming.gradle")

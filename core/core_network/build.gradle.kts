@@ -5,7 +5,7 @@ plugins {
 
 android {
     defaultConfig {
-        rootProject.extensions.add("pathToApiSchemes", "$rootDir/common/api")
+        rootProject.extensions.add("pathToApiSchemes", "${AndroidConfig.COMMON_FOLDER}/api")
         rootProject.extensions.add("applicationId", AndroidConfig.TEST_APP_ID)
     }
 }
@@ -15,13 +15,8 @@ dependencies {
     dagger()
     moshi()
     coroutines()
+    //TODO: fix api gen and remove joda
+    implementation(Library.JODA)
 }
 
-//afterEvaluate {
-//    tasks
-//            .asIterable()
-//            .filter { it.name.contains("compile") && it.name.contains("JavaWithJavac") }
-//            .forEach { it.dependsOn("apiGenerator") }
-//}
-//
 //apply(from = "${rootProject.extra["buildScriptsDir"]}/gradle/apiGenerator.gradle")

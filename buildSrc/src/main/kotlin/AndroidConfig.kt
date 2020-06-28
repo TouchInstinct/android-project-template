@@ -13,8 +13,10 @@ object AndroidConfig {
             TestPanelFlavour.OFF.flavourName +
             BuildType.Release.name
 
-    const val TEST_APP_ID = "ru.touchin.template"
-    const val PROD_APP_ID = "ru.ask.client"
+    const val TEST_APP_ID = "com.touchin.template"
+    const val PROD_APP_ID = "com.ask.client"
+
+    const val COMMON_FOLDER = "Template-common"
 
 
 }

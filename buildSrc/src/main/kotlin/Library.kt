@@ -49,4 +49,7 @@ object Library {
     const val FIREBASE_ANAL = "com.google.firebase:firebase-analytics-ktx:${Version.FIREBASE_ANAL}"
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:${Version.FIREBASE_PERF}"
     const val FIREBASE_CRASH = "com.google.firebase:firebase-crashlytics:${Version.FIREBASE_CRASH}"
+
+    //TODO: replace to java time
+    const val JODA = "net.danlew:android.joda:2.10.6"
 }
