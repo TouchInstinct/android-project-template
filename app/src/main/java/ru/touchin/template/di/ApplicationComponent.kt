@@ -1,6 +1,7 @@
 package ru.touchin.template.di
 
 import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 import ru.terrakok.cicerone.Router
 import ru.touchin.mvi_test.feature_login.LoginDeps
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
+    ApplicationModule::class,
     PreferencesModule::class,
     MainNavigationModule::class,
     NetworkModule::class,
@@ -26,5 +28,10 @@ interface ApplicationComponent : LoginDeps {
     fun inject(application: App)
 
     fun inject(activity: SingleActivity)
+
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context): ApplicationComponent
+    }
 
 }

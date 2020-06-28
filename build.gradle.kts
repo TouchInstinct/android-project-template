@@ -10,7 +10,6 @@ buildscript {
         classpath(kotlin("gradle-plugin", version = Version.KOTLIN))
         classpath("com.google.gms:google-services:${Version.GOOGLE_SERVICES_PLUGIN}")
         classpath("com.google.firebase:firebase-crashlytics-gradle:${Version.FIREBASE_CRASH_PLUGIN}")
-        classpath("com.google.firebase:perf-plugin:${Version.FIREBASE_PERF_PLUGIN}")
         classpath("com.vanniktech:gradle-dependency-graph-generator-plugin:0.5.0")
     }
 }

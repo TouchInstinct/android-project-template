@@ -1,9 +1,10 @@
 plugins {
     id(Plugins.ANDROID_APP_PLUGIN_WITH_DEFAULT_CONFIG)
     id(Plugins.FIREBASE_CRASH)
-    id(Plugins.FIREBASE_PERF)
     id(Plugins.GOOGLE_SERVICES)
 }
+
+val customEndpoint: String? = System.getenv("CUSTOM_ENDPOINT")?.takeIf(String::isNotBlank)
 
 android {
     signingConfigs {
@@ -32,6 +33,13 @@ android {
             TestPanelFlavour.DIMENSION_NAME
     )
 
+    addFlavour(ApiFlavour.MockDev, customEndpoint)
+    addFlavour(ApiFlavour.TouchinTest, customEndpoint)
+    addFlavour(ApiFlavour.CustomerProd, customEndpoint)
+
+    addFlavour(SSLPinningFlavour.OFF)
+    addFlavour(SSLPinningFlavour.ON)
+
     productFlavors {
         create(ProguardFlavour.NO_OBFUSCATE) {
             dimension = ProguardFlavour.DIMENSION_NAME
@@ -48,13 +56,6 @@ android {
                     "$rootProject.projectDir/BuildScripts/proguard/obfuscate.pro"
             ))
         }
-
-        addEmptyFlavour(ApiFlavour.MockDev)
-        addEmptyFlavour(ApiFlavour.TouchinTest)
-        addEmptyFlavour(ApiFlavour.CustomerProd)
-
-        addEmptyFlavour(SSLPinningFlavour.OFF)
-        addEmptyFlavour(SSLPinningFlavour.ON)
 
         addEmptyFlavour(TestPanelFlavour.OFF)
         addEmptyFlavour(TestPanelFlavour.ON)
@@ -89,6 +90,7 @@ dependencies {
     coreNetwork()
     leakCanary()
     sharedPrefs()
+    chucker()
     implementation(Library.FIREBASE_ANAL)
     implementation(Library.FIREBASE_CRASH)
     implementation(Library.FIREBASE_PERF)

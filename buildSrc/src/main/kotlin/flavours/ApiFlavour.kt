@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.BaseExtension
 
 sealed class ApiFlavour(
         val name: String,
@@ -26,7 +26,7 @@ sealed class ApiFlavour(
 
 }
 
-fun LibraryExtension.addFlavour(flavour: ApiFlavour, customEndpoint: String?) {
+fun BaseExtension.addFlavour(flavour: ApiFlavour, customEndpoint: String?) {
     productFlavors {
         create(flavour.name) {
             dimension = flavour.dimensionName

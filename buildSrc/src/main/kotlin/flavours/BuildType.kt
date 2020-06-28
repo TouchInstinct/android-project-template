@@ -1,6 +1,8 @@
 import org.gradle.api.NamedDomainObjectContainer
 
-fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.addBuildType(type: BuildType) {
+fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.addBuildType(
+        type: BuildType
+) {
     getByName(type.name) {
         isMinifyEnabled = type.isMinifyEnabled
         isShrinkResources = type.isShrinkResources

@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.BaseExtension
 
 sealed class SSLPinningFlavour(
         val name: String,
@@ -9,18 +9,18 @@ sealed class SSLPinningFlavour(
         const val DIMENSION_NAME = "sslPinning"
     }
 
-    object OFF: SSLPinningFlavour(
+    object OFF : SSLPinningFlavour(
             name = "withoutSSLPinning",
             withSslPinning = true
     )
 
-    object ON: SSLPinningFlavour(
+    object ON : SSLPinningFlavour(
             name = "withSSLPinning",
             withSslPinning = true
     )
 }
 
-fun LibraryExtension.addFlavour(flavour: SSLPinningFlavour) {
+fun BaseExtension.addFlavour(flavour: SSLPinningFlavour) {
     productFlavors {
         create(flavour.name) {
             dimension = flavour.dimensionName

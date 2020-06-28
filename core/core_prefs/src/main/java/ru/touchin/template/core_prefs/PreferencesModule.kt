@@ -10,7 +10,7 @@ import ru.touchin.roboswag.core.observables.storable.NonNullStorable
 import javax.inject.Singleton
 
 @Module
-class PreferencesModule(private val context: Context) {
+class PreferencesModule {
 
     @Provides
     @Singleton
