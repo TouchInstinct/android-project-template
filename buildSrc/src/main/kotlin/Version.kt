@@ -14,7 +14,7 @@ object Version {
     const val ANDROID_LIFECYCLE = "2.2.0"
     const val SWIPE_REFRESH = "1.0.0"
 
-    const val DAGGER = "2.26"
+    const val DAGGER = "2.27"
     const val DAGGER_INJECT_ASSISTED = "0.5.2"
     const val DAGGER_COMPONENT_MANAGER = "2.1.0"
 
@@ -25,11 +25,16 @@ object Version {
 
     const val MOSHI = "1.9.2"
 
-    const val COROUTINES = "1.3.6"
+    const val COROUTINES = "1.3.7"
 
     const val CICERONE = "5.1.0"
 
-    const val FIREBASE_CRASHLYTICS = "2.1.1"
+    const val FIREBASE_ANAL = "17.4.3"
+    const val FIREBASE_CRASH = "17.1.0"
+    const val FIREBASE_PERF = "19.0.7"
+    const val GOOGLE_SERVICES_PLUGIN = "4.3.3"
+    const val FIREBASE_PERF_PLUGIN = "1.3.1"
+    const val FIREBASE_CRASH_PLUGIN = "2.2.0"
 
     const val LEAK_CANARY = "2.4"
     const val CHUCKER = "3.2.0"

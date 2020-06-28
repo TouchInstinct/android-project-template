@@ -9,7 +9,9 @@ object Plugins {
     const val KOTLIN_ANDROID_EXTENSIONS = "kotlin-android-extensions"
     const val KOTLIN_KAPT = "kotlin-kapt"
 
-    const val FIREBASE_CRASHLYTICS = "com.google.firebase.crashlytics"
+    const val GOOGLE_SERVICES = "com.google.gms.google-services"
+    const val FIREBASE_CRASH = "com.google.firebase.crashlytics"
+    const val FIREBASE_PERF = "com.google.firebase.firebase-perf"
 
     const val DEPENDENCY_GRAPH = "com.vanniktech.dependency.graph.generator"
 

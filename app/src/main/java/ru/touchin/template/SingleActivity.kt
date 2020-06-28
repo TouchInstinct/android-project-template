@@ -1,6 +1,9 @@
 package ru.touchin.template
 
 import android.os.Bundle
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.touchin.roboswag.navigation_base.activities.BaseActivity
@@ -19,8 +22,12 @@ class SingleActivity : BaseActivity() {
     @Inject
     lateinit var navigation: StartUpNavigation
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        firebaseAnalytics = Firebase.analytics
 
         setContentView(R.layout.activity_main)
 

@@ -45,4 +45,8 @@ object Library {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY}"
     const val CHUCKER = "com.github.chuckerteam.chucker:library:${Version.CHUCKER}"
     const val CHUCKER_NO_OP = "com.github.chuckerteam.chucker:library-no-op:${Version.CHUCKER}"
+
+    const val FIREBASE_ANAL = "com.google.firebase:firebase-analytics-ktx:${Version.FIREBASE_ANAL}"
+    const val FIREBASE_PERF = "com.google.firebase:firebase-perf:${Version.FIREBASE_PERF}"
+    const val FIREBASE_CRASH = "com.google.firebase:firebase-crashlytics:${Version.FIREBASE_CRASH}"
 }

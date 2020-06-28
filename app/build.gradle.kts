@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.ANDROID_APP_PLUGIN_WITH_DEFAULT_CONFIG)
-    id(Plugins.FIREBASE_CRASHLYTICS)
+    id(Plugins.FIREBASE_CRASH)
+    id(Plugins.FIREBASE_PERF)
+    id(Plugins.GOOGLE_SERVICES)
 }
 
 android {
@@ -87,6 +89,9 @@ dependencies {
     coreNetwork()
     leakCanary()
     sharedPrefs()
+    implementation(Library.FIREBASE_ANAL)
+    implementation(Library.FIREBASE_CRASH)
+    implementation(Library.FIREBASE_PERF)
 }
 
 //gradle.projectsEvaluated {
