@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1084813714260",
+    "firebase_url": "https://testproject-ac7fe.firebaseio.com",
+    "project_id": "testproject-ac7fe",
+    "storage_bucket": "testproject-ac7fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084813714260:android:b6d7bb18a0acfe96255ec1",
+        "android_client_info": {
+          "package_name": "com.touchin.template"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084813714260-ijq13dkdc1h5i5j87t45tiibl8eg2v9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVsh_CN-RCfU3LkHuvhLdqVS-ZUJbOljE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084813714260-ijq13dkdc1h5i5j87t45tiibl8eg2v9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
