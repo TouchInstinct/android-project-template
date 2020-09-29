@@ -10,7 +10,12 @@ fun DependencyHandler.fragment() {
 
 fun DependencyHandler.materialDesign() {
     implementation(Library.ANDROID_MATERIAL)
-    implementation(Library.SWIPE_REFRESH)
+    implementation(Library.SWIPE_TO_REFRESH)
+}
+
+fun DependencyHandler.permissionDispatcher() {
+    implementation(Library.PERMISSION_DISPATCHER)
+    kapt(Library.PERMISSION_DISPATCHER_ANNOTATION_PROCESSOR)
 }
 
 fun DependencyHandler.constraintLayout() {
@@ -49,6 +54,10 @@ fun DependencyHandler.mvi() {
 
 fun DependencyHandler.coreNetwork() {
     implementationModule(Module.Core.NETWORK)
+}
+
+fun DependencyHandler.coreStrings() {
+    implementationModule(Module.Core.STRINGS)
 }
 
 fun DependencyHandler.retrofit() {

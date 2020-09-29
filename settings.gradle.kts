@@ -22,6 +22,7 @@ val roboswagModules = listOf(
         "kotlin-extensions"
 )
 
+includeBuild("BuildScripts/gradle/plugins")
 roboswagModules.forEach { module ->
     include(":$module")
     project(":$module").projectDir = file("RoboSwag/$module")

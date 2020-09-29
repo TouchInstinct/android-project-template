@@ -11,12 +11,13 @@ buildscript {
         classpath("com.google.gms:google-services:${Version.GOOGLE_SERVICES_PLUGIN}")
         classpath("com.google.firebase:firebase-crashlytics-gradle:${Version.FIREBASE_CRASH_PLUGIN}")
         classpath("com.vanniktech:gradle-dependency-graph-generator-plugin:0.5.0")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.10.2")
     }
 }
 
 plugins {
-    id(Plugins.DETEKT).version("1.10.0")
-    id(Plugins.CPD).version("3.1")
+    id(Plugins.DEPENDENCY_GRAPH).version("0.5.0")
+    id("static-analysis-android")
 }
 
 allprojects {
@@ -37,5 +38,6 @@ ext["buildScriptsDir"] = buildScriptsDir
 
 apply(plugin = Plugins.DEPENDENCY_GRAPH)
 
-//TODO: make staticAnalysis work on kotlin DSL
-//apply(from = "$buildScriptsDir/gradle/staticAnalysis.gradle")
+staticAnalysis {
+    buildScriptDir = buildScriptsDir
+}

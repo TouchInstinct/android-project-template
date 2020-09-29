@@ -1,30 +1,38 @@
-import org.gradle.api.NamedDomainObjectContainer
+import com.android.build.gradle.BaseExtension
 
-fun NamedDomainObjectContainer<com.android.build.gradle.internal.dsl.BuildType>.addBuildType(
-        type: BuildType
+fun BaseExtension.addBuildType(
+        type: BuildType,
+        buildScriptDir: String
 ) {
-    getByName(type.name) {
-        isMinifyEnabled = type.isMinifyEnabled
-        isShrinkResources = type.isShrinkResources
+    buildTypes {
+        getByName(type.name) {
+            isMinifyEnabled = type.optimizeAndObfuscate
+            isShrinkResources = type.optimizeAndObfuscate
+            if (type.optimizeAndObfuscate) {
+                val proguardFile = if (AndroidConfig.RELEASE_DEBUGGABLE) "noObfuscate.pro" else "obfuscate.pro"
+                setProguardFiles(listOfNotNull(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "$buildScriptDir/proguard/$proguardFile",
+                        "proguard/projectConfig.pro"
+                ))
+            }
+        }
     }
 }
 
 sealed class BuildType(
         val name: String,
-        val isMinifyEnabled: Boolean,
-        val isShrinkResources: Boolean
+        val optimizeAndObfuscate: Boolean
 ) {
 
     object Debug : BuildType(
             name = "debug",
-            isMinifyEnabled = false,
-            isShrinkResources = false
+            optimizeAndObfuscate = false
     )
 
     object Release : BuildType(
             name = "release",
-            isMinifyEnabled = true,
-            isShrinkResources = true
+            optimizeAndObfuscate = true
     )
 
 }

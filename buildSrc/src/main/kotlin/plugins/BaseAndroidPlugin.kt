@@ -1,6 +1,7 @@
 package plugins
 
 import AndroidConfig
+import BuildType
 import Plugins
 import com.android.build.gradle.BaseExtension
 import kotlinStd
@@ -48,6 +49,14 @@ abstract class BaseAndroidPlugin : Plugin<Project> {
         tasks.withType(KotlinCompile::class.java) {
             kotlinOptions {
                 jvmTarget = "1.8"
+            }
+        }
+
+        if (AndroidConfig.RELEASE_DEBUGGABLE) {
+            buildTypes {
+                getByName(BuildType.Release.name) {
+                    isDebuggable = true
+                }
             }
         }
     }

@@ -2,74 +2,42 @@ plugins {
     id(Plugins.ANDROID_APP_PLUGIN_WITH_DEFAULT_CONFIG)
     id(Plugins.FIREBASE_CRASH)
     id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.LICENCE_PLUGIN)
 }
 
-val customEndpoint: String? = System.getenv("CUSTOM_ENDPOINT")?.takeIf(String::isNotBlank)
+val customEndpoint: String? = Environment.ENDPOINT.getenv()?.takeIf(String::isNotBlank)
 
 android {
-    signingConfigs {
-        addConfig(SigningConfig.Test)
-        addConfig(SigningConfig.Prod)
-    }
+    configureSigningConfig(this@Build_gradle::file)
 
-    defaultConfig {
-        applicationId = AndroidConfig.TEST_APP_ID
-        signingConfig = signingConfigs.getByName(SigningConfig.Test.name)
+    with(defaultConfig) {
+        applicationId = Environment.APP_ID.getenv() ?: AndroidConfig.TEST_APP_ID
+        signingConfig = signingConfigs.getByName(SigningConfig.CONFIG_NAME)
     }
 
     firebaseCrashlytics {
         mappingFileUploadEnabled = true
     }
 
-    buildTypes {
-        addBuildType(BuildType.Debug)
-        addBuildType(BuildType.Release)
-    }
+    addBuildType(BuildType.Debug, buildScriptDir = buildScriptDir)
+    addBuildType(BuildType.Release, buildScriptDir = buildScriptDir)
 
     flavorDimensions(
-            ProguardFlavour.DIMENSION_NAME,
             ApiFlavour.DIMENSION_NAME,
             SSLPinningFlavour.DIMENSION_NAME,
             TestPanelFlavour.DIMENSION_NAME
     )
 
-    addFlavour(ApiFlavour.MockDev, customEndpoint)
-    addFlavour(ApiFlavour.TouchinTest, customEndpoint)
-    addFlavour(ApiFlavour.CustomerProd, customEndpoint)
+    addFlavour(flavour = ApiFlavour.CustomerStage, customEndpoint = customEndpoint)
+    addFlavour(flavour = ApiFlavour.CustomerProd, customEndpoint = customEndpoint)
 
     addFlavour(SSLPinningFlavour.OFF)
     addFlavour(SSLPinningFlavour.ON)
 
-    productFlavors {
-        create(ProguardFlavour.NO_OBFUSCATE) {
-            dimension = ProguardFlavour.DIMENSION_NAME
-            setProguardFiles(listOf(
-                    getDefaultProguardFile("proguard-android.txt"),
-                    "$rootProject.projectDir/BuildScripts/proguard/noObfuscate.pro"
-            ))
-        }
+    addEmptyFlavour(TestPanelFlavour.OFF)
+    addEmptyFlavour(TestPanelFlavour.ON)
 
-        create(ProguardFlavour.OBFUSCATE) {
-            dimension = ProguardFlavour.DIMENSION_NAME
-            setProguardFiles(listOf(
-                    getDefaultProguardFile("proguard-android.txt"),
-                    "$rootProject.projectDir/BuildScripts/proguard/obfuscate.pro"
-            ))
-        }
-
-        addEmptyFlavour(TestPanelFlavour.OFF)
-        addEmptyFlavour(TestPanelFlavour.ON)
-    }
-
-    variantFilter = Action {
-        if (name.contentEquals(AndroidConfig.PROD_BUILD_NAME)) {
-            (defaultConfig as com.android.build.gradle.internal.dsl.BaseFlavor).apply {
-                applicationId = AndroidConfig.PROD_APP_ID
-                signingConfig = signingConfigs.getByName(SigningConfig.Prod.name)
-            }
-        }
-    }
-
+    ignoreCustomerProdFlavourIfReleaseIsDebuggable()
 }
 
 androidExtensions {
@@ -85,13 +53,22 @@ dependencies {
     retrofit()
     moshi()
     navigation()
-    coreNetwork()
     leakCanary()
     sharedPrefs()
     chucker()
     implementation(Library.FIREBASE_ANAL)
     implementation(Library.FIREBASE_CRASH)
     implementation(Library.FIREBASE_PERF)
+    implementation(Library.ANDROIDX_SECURE)
+    coreNetwork()
+    coreStrings()
+    implementationModule(Module.Core.UI)
+    implementationModule(Module.Core.UTILS)
+    implementationModule(Module.Core.DATA)
+    implementationModule(Module.RoboSwag.UTILS)
 }
 
-apply(from = "${rootProject.ext["buildScriptsDir"]}/gradle/applicationFileNaming.gradle")
+apply(from = "$buildScriptDir/gradle/scripts/applicationFileNaming.gradle")
+
+val Project.buildScriptDir: String
+    get() = rootProject.ext["buildScriptsDir"] as String

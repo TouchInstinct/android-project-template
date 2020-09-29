@@ -9,10 +9,14 @@ object Version {
     const val ANDROIDX_APPCOMPAT = "1.0.2"
     const val ANDROIDX_CONSTRAINT = "2.0.0-beta4"
     const val ANDROIDX_FRAGMENT = "1.2.1"
+    const val ANDROIDX_SECURE = "1.0.0-rc02"
+    const val ANDROIDX_BIOMETRIC = "1.0.1"
 
-    const val ANDROID_MATERIAL = "1.1.0"
+    const val ANDROID_MATERIAL = "1.2.0-rc01"
+    const val SWIPE_TO_REFRESH = "1.0.0"
     const val ANDROID_LIFECYCLE = "2.2.0"
-    const val SWIPE_REFRESH = "1.0.0"
+
+    const val PERMISSION_DISPATCHER = "4.8.0"
 
     const val DAGGER = "2.27"
     const val DAGGER_INJECT_ASSISTED = "0.5.2"
@@ -33,10 +37,11 @@ object Version {
     const val FIREBASE_CRASH = "17.1.0"
     const val FIREBASE_PERF = "19.0.7"
     const val GOOGLE_SERVICES_PLUGIN = "4.3.3"
-    const val FIREBASE_PERF_PLUGIN = "1.3.1"
     const val FIREBASE_CRASH_PLUGIN = "2.2.0"
 
     const val LEAK_CANARY = "2.4"
     const val CHUCKER = "3.2.0"
+
+    const val LICENCE_LIBRARY = "17.0.0"
 
 }

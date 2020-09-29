@@ -1,22 +1,20 @@
 plugins {
     id(Plugins.ANDROID_LIB_PLUGIN_WITH_DEFAULT_CONFIG)
+//    id("api-generator-android")
 }
 
-
-android {
-    defaultConfig {
-        rootProject.extensions.add("pathToApiSchemes", "${AndroidConfig.COMMON_FOLDER}/api")
-        rootProject.extensions.add("applicationId", AndroidConfig.TEST_APP_ID)
-    }
-}
+// TODO: uncomment api generator
+//apiGenerator {
+//    pathToApiSchemes = "${AndroidConfig.COMMON_FOLDER}/api"
+//    outputPackageName = AndroidConfig.TEST_APP_ID
+//    outputLanguage = apigen.OutputLanguage.KotlinAndroid(
+//            methodOutputType = apigen.MethodOutputType.Coroutine
+//    )
+//}
 
 dependencies {
     retrofit()
     dagger()
     moshi()
     coroutines()
-    //TODO: fix api gen and remove joda
-    implementation(Library.JODA)
 }
-
-//apply(from = "${rootProject.extra["buildScriptsDir"]}/gradle/apiGenerator.gradle")

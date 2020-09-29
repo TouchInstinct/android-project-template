@@ -9,19 +9,16 @@ sealed class ApiFlavour(
         const val DIMENSION_NAME = "apiEndpoint"
     }
 
-    object MockDev : ApiFlavour(
-            name = "mockDev",
-            apiUrl = "url1"
+    // TODO: change url
+    object CustomerStage : ApiFlavour(
+            name = "customerStage",
+            apiUrl = "https://wallet-api.staging.mnxsc.tech"
     )
 
-    object TouchinTest : ApiFlavour(
-            name = "touchinTest",
-            apiUrl = "url2"
-    )
-
+    // TODO: change url
     object CustomerProd : ApiFlavour(
             name = "customerProd",
-            apiUrl = "url3"
+            apiUrl = "https://wallet-api.prod.mnxsc.tech"
     )
 
 }

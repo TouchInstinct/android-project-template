@@ -8,14 +8,15 @@ object Module {
         const val NAVIGATION_CICERONE = "navigation-cicerone"
         const val STORABLE = "storable"
         const val LIFECYCLE = "lifecycle"
-        const val PAGINATION = "pagination"
         const val VIEWS = "views"
         const val RECYCLER_VIEW_ADAPTERS = "recyclerview-adapters"
+        const val RECYCLER_VIEW_DECORATORS = "recyclerview-decorators"
         const val KOTLIN_EXTENSIONS = "kotlin-extensions"
     }
 
     object Feature {
         const val LOGIN = "feature_login"
+
         val ALL = listOf(
                 LOGIN
         )
@@ -27,6 +28,8 @@ object Module {
         const val STRINGS = "core_strings"
         const val UTILS = "core_utils"
         const val UI = "core_ui"
+        const val DATA = "core_data"
+        const val DOMAIN = "core_domain"
     }
 
 }

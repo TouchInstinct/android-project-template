@@ -1,10 +1,11 @@
-import com.android.build.gradle.internal.dsl.ProductFlavor
-import org.gradle.api.NamedDomainObjectContainer
+import com.android.build.gradle.BaseExtension
 
 abstract class Flavour(val flavourName: String, val dimensionName: String)
 
-fun NamedDomainObjectContainer<ProductFlavor>.addEmptyFlavour(flavour: Flavour) {
-    create(flavour.flavourName) {
-        dimension = flavour.dimensionName
+fun BaseExtension.addEmptyFlavour(flavour: Flavour) {
+    productFlavors {
+        create(flavour.flavourName) {
+            dimension = flavour.dimensionName
+        }
     }
 }

@@ -1,24 +1,28 @@
+import com.android.build.gradle.BaseExtension
+
 object AndroidConfig {
     const val COMPILE_SDK_VERSION = 29
     const val MIN_SDK_VERSION = 23
     const val TARGET_SDK_VERSION = 29
     const val BUILD_TOOLS_VERSION = "29.0.2"
 
-    val VERSION_CODE: Int = System.getenv("BUILD_NUMBER")?.toIntOrNull() ?: 10000
-    val VERSION_NAME = "1.0.0"
+    val VERSION_CODE: Int = Environment.BUILD_NUMBER.getenv()?.toIntOrNull() ?: 10000
+    const val VERSION_NAME = "1.0.0"
 
-    val PROD_BUILD_NAME = ProguardFlavour.OBFUSCATE +
-            ApiFlavour.CustomerProd.flavourName +
-            SSLPinningFlavour.ON.flavourName +
-            TestPanelFlavour.OFF.flavourName +
-            BuildType.Release.name
-
+    // TODO: change test package name
     const val TEST_APP_ID = "com.touchin.template"
-    const val PROD_APP_ID = "com.ask.client"
 
+    // TODO: change common file folder
     const val COMMON_FOLDER = "Template-common"
 
+    const val RELEASE_DEBUGGABLE = false
 
+}
+
+fun BaseExtension.ignoreCustomerProdFlavourIfReleaseIsDebuggable() {
+    variantFilter {
+        ignore = name.contains(ApiFlavour.CustomerProd.name, ignoreCase = true) && AndroidConfig.RELEASE_DEBUGGABLE
+    }
 }
 
 

@@ -10,7 +10,10 @@ object Library {
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Version.ANDROIDX_FRAGMENT}"
 
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Version.ANDROID_MATERIAL}"
-    const val SWIPE_REFRESH = "androidx.swiperefreshlayout:swiperefreshlayout:${Version.SWIPE_REFRESH}"
+    const val SWIPE_TO_REFRESH = "androidx.swiperefreshlayout:swiperefreshlayout:${Version.SWIPE_TO_REFRESH}"
+
+    const val PERMISSION_DISPATCHER = "org.permissionsdispatcher:permissionsdispatcher:${Version.PERMISSION_DISPATCHER}"
+    const val PERMISSION_DISPATCHER_ANNOTATION_PROCESSOR = "org.permissionsdispatcher:permissionsdispatcher-processor:${Version.PERMISSION_DISPATCHER}"
 
     const val ANDROID_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:${Version.ANDROID_LIFECYCLE}"
     const val ANDROID_LIFECYCLE_VIEW_MODEL_EXTENSIONS = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.ANDROID_LIFECYCLE}"
@@ -50,6 +53,8 @@ object Library {
     const val FIREBASE_PERF = "com.google.firebase:firebase-perf:${Version.FIREBASE_PERF}"
     const val FIREBASE_CRASH = "com.google.firebase:firebase-crashlytics:${Version.FIREBASE_CRASH}"
 
-    //TODO: replace to java time
-    const val JODA = "net.danlew:android.joda:2.10.6"
+    const val ANDROIDX_SECURE = "androidx.security:security-crypto:${Version.ANDROIDX_SECURE}"
+    const val ANDROIDX_BIOMETRIC = "androidx.biometric:biometric:${Version.ANDROIDX_BIOMETRIC}"
+
+    const val LICENCE_LIBRARY = "com.google.android.gms:play-services-oss-licenses:${Version.LICENCE_LIBRARY}"
 }
